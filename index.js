@@ -32,15 +32,15 @@ class Sprite {
     context.fillStyle = this.color;
     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    // AttackBox
+    // Attack box
     if (this.isAttacking) {
-      context.fillStyle = "green";
-      context.fillRect(
-        this.attackBox.position.x,
-        this.attackBox.position.y,
-        this.attackBox.width,
-        this.attackBox.height
-      );
+    context.fillStyle = this.color
+    context.fillRect(
+      this.attackBox.position.x,
+      this.position.y, 
+      this.attackBox.width,
+      this.attackBox.height
+    )
     }
   }
 
@@ -151,15 +151,15 @@ function animate() {
   }
 
   // detect for collision
-  if (
-    rectangularCollision({
-      rectangle1: player,
-      rectangle2: enemy,
-    }) &&
-    player.isAttacking
-  ) {
-    player.isAttacking = false;
-    console.log("Ai, doeu");
+  if (player.attackBox.position.x + player.attackBox.width >= 
+    enemy.position.x && player.attackBox.position.x <=
+     enemy.position.x + enemy.width && 
+     player.attackBox.position.y + player.attackBox.height >= enemy.position.y &&
+     player.attackBox.position.y <= enemy.position.y + enemy.height &&
+     player.isAttacking
+     ) {
+      player.isAttacking = false
+    console.log('go')
   }
 
   if (
@@ -188,7 +188,7 @@ addEventListener("keydown", (event) => {
       player.lastKey = "a";
       break;
     case "w":
-      player.velocity.y = -10;
+      player.velocity.y = -7;
       break;
     case " ":
       player.attack();
@@ -203,7 +203,7 @@ addEventListener("keydown", (event) => {
       enemy.lastKey = "ArrowLeft";
       break;
     case "ArrowUp":
-      enemy.velocity.y = -10;
+      enemy.velocity.y = -7;
       break;
     case "ArrowDown":
       enemy.isAttacking = true
